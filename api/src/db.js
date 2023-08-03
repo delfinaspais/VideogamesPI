@@ -1,10 +1,11 @@
 require('dotenv').config();
+
+// Conectar con la base de datos, definir los modelos, relacionarlos, exportar
+
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const {
-  DB_USER, DB_PASSWORD, DB_HOST,
-} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, API_KEY} = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`, {
   logging: false, // set to console.log to see the raw SQL queries
@@ -30,10 +31,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Videogame } = sequelize.models;
+const { Videogame, Genre } = sequelize.models; //! ADD "GENRE"
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+//!
+Videogame.belongsToMany(Genre, {through: "VideogameGenre"});
+Genre.belongsToMany(Videogame,{through: "VideogameGenre"});
+//!
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
