@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => { // Función que define el modelo + conexion a sequelize
   
   sequelize.define('videogame', {
-    //! ------------------------------
+    
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -12,14 +12,14 @@ module.exports = (sequelize) => { // Función que define el modelo + conexion a 
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: false 
     },
-    releaseDate: {
-      type: DataTypes.STRING,
+    released: {
+      type: DataTypes.DATEONLY,
       allowNull: true
     },
     rating: {
@@ -36,11 +36,11 @@ module.exports = (sequelize) => { // Función que define el modelo + conexion a 
       allowNull: true
       // defaultValue:
     },
-    // createdInDb: {
-    //   type: DataTypes.BOOLEAN, //* .STRING?
-    //   allowNull: false,
-    //   defaultValue: true
-    // }, 
+    createdInDb: {
+      type: DataTypes.BOOLEAN, //* .STRING?
+      allowNull: false,
+      defaultValue: true
+    }, 
   }, { timestamps: false } ); // no CREATEDAT UPDATEAT freezeTableName: true NO PLURALIZA 
-  //! -------------------------------
+  
 };

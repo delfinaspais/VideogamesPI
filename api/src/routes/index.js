@@ -1,7 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const { Videogame, Genre } = require("../db.js");
-const { getAllGameData, getGenresFromAPI, getGamesFromDb } = require("./controllers");
+const { getAllGameData, getGenresFromAPI, getGamesFromDb, getVideogamesByName } = require("./controllers");
 const { API_KEY } = process.env;
 
 // Importar todos los routers;
@@ -12,31 +12,88 @@ const router = express.Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.get("/videogames", async function (req, res) {
-  // funcion asincrona
-  const { name } = req.query;
+router.get("/videogames", async function (req, res, next) {
+  
   try {
-    let allGames = await getAllGameData();
-
+    const name = req.query.name;
     if (name) {
-      let filteredByName = allGames.filter((game) =>
-        game.name.toLowerCase().includes(name.toLowerCase())
-      ); 
-
-      return filteredByName.length > 0
-        ? res.status(200).json(filteredByName)
-        : res.status(404).send("Videogame name not found");
+      
+      let videogamesByName = await getVideogamesByName(name);
+      let filteredVideogames = videogamesByName.filter((vg) =>
+      vg.name.toLowerCase().includes(name.toLowerCase())
+      );
+      if (filteredVideogames.length >= 1) {
+        await filteredVideogames.sort((a, b) => {
+          if (a.name.length > b.name.length) {
+            return 1;
+          } else if (a.name.length < b.name.length) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        if (filteredVideogames.length >= 16) {
+          let showOnly15 = filteredVideogames.slice(0, 15);
+          return res.status(200).send(showOnly15);
+        }
+        return res.status(200).send(filteredVideogames);
+      } else {
+        return res.status(404).send("Lo sentimos, no se encontraron videojuegos bajo ese nombre");
+      }
+    } else {
+      let allVideogames = await getAllGameData();
+      res.status(200).send(allVideogames);
     }
-
-    res.status(200).json(allGames);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    next(error);
   }
-});
+})
+// funcion asincrona
+//   const { name } = req.query;
+//   try {
+//     let allGames = await getAllGameData();
+
+//     if (name) {
+//       let filteredByName = allGames.filter((game) =>
+//         game.name.toLowerCase().includes(name.toLowerCase())
+//       ); 
+
+//       return filteredByName.length > 0
+//         ? res.status(200).json(filteredByName)
+//         : res.status(404).send("Videogame name not found");
+//     }
+
+//     res.status(200).json(allGames);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 router.get("/videogame/:id", async function (req, res) {
   const { id } = req.params;
+
+  // if (!id || id.trim() === '') {
+  //   return res.status(400).send("BUENASSSS"); // Retorna si el id no es válido
+  // }
+
 
   if (id.includes("-")) {
     const arrayDb = await getGamesFromDb();
@@ -57,7 +114,7 @@ router.get("/videogame/:id", async function (req, res) {
         name: response.data.name,
         background_image: response.data.background_image,
         description: response.data.description_raw,
-        releaseDate: response.data.releaseDate,
+        released: response.data.released,
         rating: response.data.rating,
         platforms: response.data.platforms
           .map((platform) => platform.platform.name)
@@ -72,13 +129,18 @@ router.get("/videogame/:id", async function (req, res) {
   }
 });
 
+
+
+
+
 router.get("/genres", async function (req, res) {
   const allGenres = await getGenresFromAPI();
   if (allGenres) {
     allGenres.map((genres) =>
+    
       Genre.findOrCreate({
         where: {
-          name: genres.name,
+          name: genres,
         },
       })
     );
@@ -88,14 +150,27 @@ router.get("/genres", async function (req, res) {
 
 
 router.post("/videogame", async function (req, res) {
-  const { name, description, releaseDate, rating, platforms, background_image, genres } = req.body;
+  const { name, description, released, rating, platforms, background_image, genres } = req.body;
 
   try {
+    //  console.log("Buscando videojuego existente...");
+    // const newGame = await Videogame.findOrCreate({
+    // //   where: { name, description, released, rating, platforms: JSON.stringify(platforms), background_image }
+    // });
+    const existingGame = await Videogame.findOne({
+      where: { name }
+    })
+
+
+    if (existingGame) {
+      return res.status(400).json({ error: "Ya existe un videojuego con este nombre" });
+    }
+
     const newGame = await Videogame.findOrCreate({
-      where: { name, description, releaseDate, rating, platforms: platforms.join(", "), background_image }
+      where: { name, description, released, rating, platforms: JSON.stringify(platforms), background_image }
     });
 
-    const genreNames = genres;
+    const genreNames = genres;  
 
     const genreDb = await Genre.findAll({
       where: { name: genreNames }
@@ -110,6 +185,9 @@ router.post("/videogame", async function (req, res) {
 
   res.send("Successfully created");
 });
+
+
+
 
 
 module.exports = router;
