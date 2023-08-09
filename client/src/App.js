@@ -1,7 +1,7 @@
 import Landing from './components/Landing/Landing';
 import Detail from './components/Detail/Detail';
 import Home from './components/Home/Home';
-import Form from './components/Form/Form'
+import Form from './components/Form/Form';
 import {Route} from "react-router-dom" // useLocation
 import './App.css';
 // import NavBar from './components/NavBar/NavBar';

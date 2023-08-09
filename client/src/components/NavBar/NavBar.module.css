@@ -1,13 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+
 .navContainer {
-    background-color: red;
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
-    padding: 10px;
-    width: 150px;
-    line-height: 30px;
-    margin-bottom: 30px;
-    
+    width: 80%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: blue; */
+}
+
+.navButton {
+    backdrop-filter: blur(15px);
+    color: #ffffffd0;
+	width: 8em;
+    height: 2.8em;
+	border-radius: 1em;
+    border: #92b5b9;
+	background: transparent;
+    border-radius: 20px;
+	padding: 0.8em;
+    font-family: 'Tektur', cursive;
+    font-size: 20px;
+    margin-left: 3px;
+} 
+
+.navButton:hover {
+	filter: brightness(110%);
+}
+
+.bar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 30%;
+}
+
+.searchInput {
+	display: flex;
+	width: 16em;
+    height: 2.4em;
+	border-radius: 0.5em;
+    background-color: whitesmoke;
+	border-radius: 1em;
+    border: #92b5b9;
+	padding: 4px;
+    margin-left: 110%;
+}
+
+.searchButton {
+	color: #fff;
+	width: 8em;
+    height: 2.8em;
+	border-radius: 1em;
+    border: #92b5b9;
+	background: transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+	padding: 0.8em;
+    font-family: 'Tektur', cursive;
+    font-size: 5px;
+
+}
+.searchButton:hover {
+	filter: brightness(150%);
 }
 
 

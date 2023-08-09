@@ -10,9 +10,9 @@ const Landing = () => {
         <source src={landingvideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <h1 className={styles.welcome}>WELCOME TO VIDEOGAMES UNIVERSE</h1>
+      <h1 className={styles.welcome}>DISCOVER VIDEOGAMES UNIVERSE</h1>
       <Link to="/home">
-        <button className={styles.startButton}>Press Start</button>
+        <button className={styles.startButton}>Start</button>
       </Link>
     </div>
   );

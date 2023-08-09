@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+
+.container{
+    font-family: 'Tektur', cursive;
+    height: 90%;
+    /* background-color: aqua; */
+}
+
+.textcont {
+    /* background-color: blue; */
+    height: 10px;
+    width: 500px;
+    margin-right: 40%;
+}
+
+
+.buttonhome {
+    margin-left: 10px ;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 30px;
+    padding: 1em 2em;
+    font-size: 10px;
+    font-family: 'Tektur', cursive;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #6d0a0a;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+   }
+   
+   .buttonhome:hover {
+    /* background-color: #023e8a; */
+    box-shadow: 0px 15px 20px rgba(47, 37, 179, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+   }
+   
+   .buttonhome:active {
+    transform: translateY(-1px);
+}
+
+.bloque1{
+    display: flex;
+    justify-content: space-around;
+}
+
+.div2{
+    display: flex;
+}
+
+.imgcont {
+    display: flex;
+    justify-content: space-around;
+    /* background-color: red; */
+}
+
+.img {
+    margin-top: 0.5rem;
+   width: 25rem;
+   height: 18rem;
+   border-radius: 30px;
+   margin-left: 30%;
+ 
+ }
+
+ .description{
+    /* margin-top: 2rem; */
+    width: 36rem;
+    height: 50rem;
+    font-size: 0.8rem;
+    color: rgba(9, 13, 66, 0.863);
+    font-family: 'Tektur', cursive;
+    /* background-color: black; */
+    margin-right: 9rem;
+ }
+
+ .name{
+    margin-top: 3rem;
+    font-size: 1.8rem;
+ }
+
+.divdata{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: beige; */
+    width: 20rem;
+    height: 18rem;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.title1{
+    font-size: 2rem;
+    margin-left: 150px;    
+    margin-right: 120px;
+}
+.title2{
+    font-size: 1.2rem; 
+    font-style:italic;
+    margin-right: 350px;
+    /* background-color: #023e8a; */
+    margin-left: 40%;
+    margin-top: -5%;
+}
+
+.value, .divElement{
+    font-size: 0.8rem;
+    margin-top: -5%;
+    margin-bottom: 10%;
+   
+}

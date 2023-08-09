@@ -1,34 +1,19 @@
-.divpaginate{
-    display: flex;
-    justify-content: center;
+.pagbutton {
+         
+        font-size: 1rem; 
+        font-family: 'Tektur', cursive;
+        color: #fff;
+        background: transparent;
+        border-radius: 20px;
+    backdrop-filter: blur(15px);
+       
+        position: relative;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        
+        border:#fff;
 }
 
-.paginatebutton {
-    margin-left: 10px ;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 1em 2em;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    font-weight: 500;
-    color: #000;
-    background-color: #fff;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-   }
-   
-   .paginatebutton:hover {
-    background-color: #023e8a;
-    box-shadow: 0px 15px 20px rgba(47, 37, 179, 0.4);
-    color: #fff;
-    transform: translateY(-7px);
-   }
-   
-   .paginatebutton:active {
-    transform: translateY(-1px);
-   }
+.pagButton:hover {
+	filter: brightness(150%);
+}

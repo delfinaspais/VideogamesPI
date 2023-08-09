@@ -1,15 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+
 .cardContainer {
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+    background-color: #1a706c9a;
     border: 1 px solid grey;
     border-radius: 5px;
-    padding: 25px;
+    padding: 21px;
     cursor: pointer;
     -moz-osx-font-smoothing: greyscale;
     backface-visibility: hidden;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
+    font-family: 'Tektur', cursive;
+}
+
+.cardContainer img {
+    width: 250px;
+    height: 150px;
+    border-radius: 5px;
 }
 
 .cardContainer:hover {
