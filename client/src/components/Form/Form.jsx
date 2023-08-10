@@ -12,7 +12,7 @@ const validate = (input) => {
     if(!input.rating){ errors.rating = 'Must have a rating number' }
     if(input.rating < 0 || input.rating > 5 || input.rating / input.rating !== 1){ errors.rating = 'Must be between 0 and 5 points' }
     if(!input.platforms){ errors.platforms = 'Must have a platform' }
-    if(input.genres.length <= 0){ errors.genres = 'Must have a genre' }
+    if(!input.genres.length){ errors.genres = 'Must have a genre' }
     return errors
 }
 
@@ -41,7 +41,6 @@ const Form = () => {
     function handleChange(event){
         event.preventDefault()
         setInput({ ...input, [event.target.name] : event.target.value })
-
         setErrors(validate({ ...input, [event.target.name]: event.target.value })) // console.log(errors)
     }
 
@@ -54,18 +53,21 @@ const Form = () => {
     function handleResetPlatform(event){
         event.preventDefault()
         setInput({ ...input, platforms: "" })
+        setErrors(validate({ ...input, platforms: input.platforms + event.target.value + ' - ' }))
     }
 
     
      function handleGenres(event) {
         event.preventDefault();
         setInput((prevInput) => ({ ...prevInput, genres: [...prevInput.genres, event.target.value] }));
-      }
+        setErrors(validate({ ...input, genres: input.genres + event.target.value}))}
+      
 
     function handleResetGenres(event) {
          event.preventDefault()
          setInput({ ...input, genres: [] })
-    }
+         setErrors(validate({ ...input, genres: input.genres + event.target.value}))}
+    
 
     function handlePostVideogame(event){
         if(!errors.name && !errors.description && !errors.released && !errors.rating && !errors.platforms && !errors.genres ){
@@ -104,13 +106,23 @@ const Form = () => {
             <form onSubmit={event => handlePostVideogame(event)}>
 
                 <div className={styles.container}>
-                    <label className={styles.label} style={{marginRight: '3px', fontSize:'18px'}}>Name </label><input className={styles.input} placeholder='Creat name' onChange={handleChange} type='text' value={input.name} name='name'></input>
-                    { errors.name && ( <p className={styles.errors} style={{marginRight:'20%'}}>{errors.name} </p> ) }
+                    <label className={styles.label} style={{marginRight: '3px', fontSize:'18px'}}>
+                        Name 
+                    </label><input onChange={handleChange} type='text' value={input.name} name='name' className={styles.input} placeholder='Create name' ></input>
+                    { errors.name && ( 
+                    <p className={styles.errors} style={{marginRight:'20%'}}>
+                        {errors.name} 
+                    </p> ) }
                 </div>
                 
                 <div className={styles.container}>
-                    <label className={styles.label} style={{ fontSize: '12px', marginRight: '3px'}}>Describe </label><input className={styles.input} style={{ height: '100px' }} placeholder='Create description' onChange={handleChange} type='text' value={input.description} name='description'></input>
-                    { errors.description && ( <p className={styles.errors}>{errors.description} </p> ) }
+                    <label className={styles.label} style={{ fontSize: '12px', marginRight: '3px'}}>
+                        Describe 
+                    </label><input onChange={handleChange} type='text' value={input.description} name='description' className={styles.input} style={{ height: '100px' }} placeholder='Create description' ></input>
+                    { errors.description && ( 
+                    <p className={styles.errors}> 
+                    {errors.description} 
+                    </p> ) }
                 </div>
 
                 <div className={styles.container}>

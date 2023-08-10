@@ -1,14 +1,20 @@
 import styles from "./NavBar.module.css"
 import {Link} from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getVideogamesByName } from "../../redux/actions";
+import { getVideogamesByName, getVideogames } from "../../redux/actions";
 
 const Navbar = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
-
-  function handleImputChange(e) {
+  
+  useEffect(() => {
+    if (!name) {
+      dispatch(getVideogames());
+    }
+  }, [name, dispatch]);
+  
+  function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);
   }
@@ -17,11 +23,11 @@ const Navbar = () => {
     // console.log(name); 
     dispatch(getVideogamesByName(name));
   }
-    return (
+  return (
     
     <div className={styles.navContainer}>
     <form className={styles.bar}>
-        <input className={styles.searchInput} placeholder="Searching" onChange={(e) => handleImputChange(e)}/>
+        <input className={styles.searchInput} placeholder="Searching" onChange={(e) => handleInputChange(e)}/>
         <button className={styles.navButton} onClick={(e) => handleSubmit(e)}>Search</button>
         <Link to={"/create"}><button className={styles.navButton} >Create</button></Link>
     </form>
@@ -31,3 +37,4 @@ const Navbar = () => {
 }
 
 export default Navbar;
+

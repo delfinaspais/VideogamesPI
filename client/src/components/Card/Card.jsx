@@ -9,10 +9,10 @@ const Card = ({videogame}) => {
   return (
     <Link style={{textDecoration: "none"}} to={`/home/${id}`} >
     <div className={styles.cardContainer}>
-      <h2>{name}</h2>
+      <h2 style={{color: "black"}}>{name}</h2>
       <img src={background_image} alt="" />
       {genres && genres.length > 0 && (
-        <h1>
+        <h1 style={{color: "black"}}>
           {genres.map((genre) => (typeof genre === "object" ? genre.name : genre)).join(", ")}
         </h1>
       )}

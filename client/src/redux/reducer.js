@@ -60,17 +60,25 @@ import {
         case FILTER_BY_SOURCE:
         // const allVideogames = state.allVideogames;
         //   console.log("reducer 1", state.allVideogames)
-        const originFilter =
-          action.payload === 'all'
-          ? [...state.allVideogames]
-          : state.allVideogames.filter((el) => el.createdInDb === action.payload);
-             console.log("reducer 2", originFilter);
-        return {
-          ...state,
-          videogames: originFilter,
-        };
+        // const originFilter =
+        //   action.payload === 'all'
+        //   ? [...state.allVideogames]
+        //   : state.allVideogames.filter((el) => el.createdInDb === action.payload);
+        // return {
+            //   ...state,
+        //   videogames: originFilter,
+        // };
 
-         
+        const allVideogames = state.allVideogames;
+        const sourceFiltered = action.payload === 'true' ? allVideogames.filter(el => el.id.length === 36) : allVideogames.filter(el => el.id.length !== 36);
+        console.log("reducer 2", sourceFiltered);
+        return {
+            ...state,
+            videogames: action.payload === 'all' ? state.allVideogames : sourceFiltered
+        };
+        
+        
+        
     
 
 
